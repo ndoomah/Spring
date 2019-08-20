@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>br.com.crud_example_jsf_spring_hibernate_jpa_postgres</groupId>
+  <artifactId>articles</artifactId>
+  <versioning>
+    <versions>
+      <version>0.0.1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20190708073019</lastUpdated>
+  </versioning>
+</metadata>

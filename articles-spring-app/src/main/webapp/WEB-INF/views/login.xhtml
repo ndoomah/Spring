@@ -1,0 +1,103 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="../layouts/standard.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+   <!-- <ui:define name="notes">
+        <p>
+            Form-based authentication with Spring Security.
+            Spring Security is first enabled in web.xml via DelegatingFilterProxy.
+            It's configuration is located in <strong>securityConfig.xml</strong>.
+            Flow definitions can further be protected using the secured attribute (see <strong>booking-flow.xml</strong>).
+        </p>
+    </ui:define> -->
+
+    <ui:define name="content">
+        <head>
+            <style type="text/css">
+                .centerDiv{
+                    width: 100px;
+                    height: 100px;
+
+                    position: absolute;
+                    top:0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+
+                    margin: auto;
+                }
+                body .ui-staticmessage.ui-message {
+                    width: 100%;
+                }
+            </style>
+        </head>
+
+        <div class="centerDiv" style="width: 400px">
+        <p:panel>
+        <f:facet name="header">Login</f:facet>
+        <h:panelGrid columns="2" id="msg">
+        <c:if test="${not empty param.login_error}">
+            <div class="centerDiv">
+            <p:staticMessage severity="error" summary="ERROR!" detail="Incorrect login credentials, please try again!"/>
+            </div>
+        </c:if>
+        <form name="f" action="${request.contextPath}/app/loginProcess" method="post">
+
+            <table>
+            <tr>
+                <td>User: </td>
+                <td>  <input type="text" name="username" value="#{username}" id="username"/> </td>
+            </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td> <input type="password" name="password" id="password"/> </td>
+                </tr>
+            </table>
+
+        <p>
+            <input type="checkbox" name="_spring_security_remember_me"/>
+            Don't ask for my password for two weeks:
+        </p>
+        <div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </div>
+        <p>
+            <input name="submit" type="submit" value="Login" />
+        </p>
+
+        </form>
+        </h:panelGrid>
+        </p:panel>
+        </div>
+
+        <!--
+
+        <form action="${request.contextPath}/app/loginProcess" method="post">
+            <c:if test="${not empty param.login_error}">
+                <div class="error">
+                    Your login attempt was not successful, try again.
+                </div>
+            </c:if>
+            <p:growl autoUpdate="true"/>
+
+            <div class="centerDiv" style="width: 400px">
+                <p:panel>
+                    <f:facet name="header">Login</f:facet>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="username" value="Username:" />
+                        <p:inputText id="username" value="#{username}" required="true" label="username" />
+
+                        <p:outputLabel for="password" value="Password:" />
+                        <p:password id="password" required="true" label="password" />
+
+                    </h:panelGrid>
+                    <p:button value="Login" type="submit"/>
+                </p:panel>
+            </div>
+        </form>-->
+
+    </ui:define>
+</ui:composition>

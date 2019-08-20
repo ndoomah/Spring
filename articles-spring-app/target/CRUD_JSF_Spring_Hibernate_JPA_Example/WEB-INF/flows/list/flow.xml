@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow https://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow">
+
+    <!--
+        Also see ../parent-flow.xml.
+    -->
+
+    <var name="articleBean" class="br.example.beans.ArticleBean" />
+
+    <view-state id="list">
+        <transition on="show">
+            <evaluate expression="articleBean.getItems()"/>
+        </transition>
+    </view-state>
+    <!--<view-state id="edit" model="articleBean">
+        <transition on="editarticle">
+            <evaluate expression="articleBean.setItem(item)" />
+        </transition>
+        <transition on="delete">
+            <evaluate expression="articleBean.destroy(item)"/>
+        </transition>
+        <transition on="back" to="list"/>
+    </view-state>
+-->
+</flow>

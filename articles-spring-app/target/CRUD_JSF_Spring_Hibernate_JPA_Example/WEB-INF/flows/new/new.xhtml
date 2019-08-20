@@ -1,0 +1,149 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:form="http://www.springframework.org/tags/form"
+                xmlns:spring="http://www.springframework.org/tags"
+                template="/WEB-INF/layouts/standard.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="content">
+        <h:form class="span-10">
+
+            <p:growl id="msg"/>
+            <fieldset>
+                <!--<h:panelGroup layout="block" styleClass="success" rendered="${not empty result}">
+                    <h:outputLabel for="email">Save successful: </h:outputLabel>
+                    <h:outputText id="email" value="${result}"/>
+                </h:panelGroup>-->
+                <p:panel header="New article">
+
+                <p>
+                    <p:outputLabel for="title">Title: </p:outputLabel>
+                    <!--<p:inputText id="title" value="#{articleBean.item.title}" required="true" requiredMessage="This field is empty!"/>
+                    <p:message for="title" />-->
+                    <p:inputText id="title" value="#{articleBean.item.title}" required="true">
+                        <p:ajax update="msgTitle" event="keyup"/>
+                    </p:inputText>
+                    <p:message for="title" id="msgTitle" display="icon"/>
+
+                </p>
+                <p>
+                    <p:outputLabel for="text">Text: </p:outputLabel>
+                    <p:inputText id="text" value="#{articleBean.item.text}" />
+                </p>
+                <p>
+                    <p:outputLabel for="status" value="Status:" />
+
+
+                    <p:selectOneRadio id="status" value="#{articleBean.item.status}" unselectable="true">
+                        <f:selectItem itemLabel="On sale" itemValue="On sale" />
+                        <f:selectItem itemLabel="Sold" itemValue="Sold" />
+
+                    </p:selectOneRadio>
+                </p>
+                <p>
+                    <p:outputLabel for="type" value="Type:" />
+
+                    <p:selectOneMenu id="type" value="#{articleBean.item.type}" style="width:125px">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItem itemLabel="Food" itemValue="Food" />
+                        <f:selectItem itemLabel="Furniture" itemValue="Furniture" />
+                        <f:selectItem itemLabel="Clothing" itemValue="Clothing" />
+                    </p:selectOneMenu>
+                </p>
+                <p>
+                    <p:outputLabel for="location" value="Location:" />
+
+                    <p:inputTextarea id="location" rows="2" cols="10" value="#{articleBean.item.location}" completeMethod="#{articleBean.completeArea}" queryDelay="750" minQueryLength="4" />
+                </p>
+                </p:panel>
+            </fieldset>
+            <p>
+               <!-- <p:commandButton value="Save" action="save" execute="@form" update="@form"> -->
+                <p:commandButton value="Save" action="#{articleBean.destroy(item)}" execute="@form" update="@form">
+                    <p:collector value="#{articleBean.item}" unique="true" addTo="#{articleBean.items}"/>
+                </p:commandButton>
+                <p:commandButton value="Exit" action="exit" />
+            </p>
+        </h:form>
+
+            <p:panel header="Articles list" id="items">
+
+                <p:panelGrid columns="2" cellpadding="5">
+
+                   <!-- <table>
+                        <thead>
+                        <tr>
+                            <th>Article </th>
+                            <th> Title</th>
+                            <th>Type</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ui:repeat value="#{articleBean.items}" var="item">
+                            <p:growl id="growl2" showDetail="true" />
+
+                            <tr>
+                                <td>#{item.id}</td>
+                                <td>#{item.title}</td>
+                                <td>#{item.type}</td>
+                                <td>
+                                    <h:commandLink value="Edit" action="editarticle" execute="@form" update="@form"/>
+                                </td>
+                                <td>
+                                    <h:commandLink value="Delete" action="delete" execute="@form" update="@form"/>
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                        </tbody>
+                    </table> -->
+
+                <h:form>
+
+                    <p:dataTable id="dataTable" value="#{articleBean.items}" var="item" border="1">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Article"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Title"/>
+                            </f:facet>
+                            <h:outputText value="#{item.title}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Type"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Action"/>
+                            </f:facet>
+                            <p:commandLink value="Edit" action="#{articleBean.setItem(item)}" ajax="false"/>
+                            <br/>
+                            <p:commandLink value="Remove" actionListener="#{articleBean.destroy(item)}" immediate="true" update="@form">
+                               <!-- <p:collector value="#{item}" unique="true" removeFrom="#{articleBean.items}"/>-->
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
+                            </p:commandLink>
+                            <p:confirmDialog id="confirmation" global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{articleBean.destroy(item)}" oncomplete="confirmation.hide();" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="confirmation.hide();"/>
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                </p:panelGrid>
+            </p:panel>
+
+            <br/>
+
+    </ui:define>
+
+</ui:composition>

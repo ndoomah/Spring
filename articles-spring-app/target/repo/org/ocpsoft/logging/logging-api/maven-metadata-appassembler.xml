@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.ocpsoft.logging</groupId>
+  <artifactId>logging-api</artifactId>
+  <versioning>
+    <release>1.0.2.Final</release>
+    <versions>
+      <version>1.0.2.Final</version>
+    </versions>
+    <lastUpdated>20190708073018</lastUpdated>
+  </versioning>
+</metadata>

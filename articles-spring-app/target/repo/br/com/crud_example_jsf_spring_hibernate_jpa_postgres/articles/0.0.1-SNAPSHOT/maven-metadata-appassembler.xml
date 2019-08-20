@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>br.com.crud_example_jsf_spring_hibernate_jpa_postgres</groupId>
+  <artifactId>articles</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20190708073019</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>war</extension>
+        <value>0.0.1-SNAPSHOT</value>
+        <updated>20190708073019</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

@@ -1,0 +1,43 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/layouts/standard.xhtml">
+
+    <ui:define name="title">Complete Article List</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <p:growl id="messages">
+            <p:dataTable var="item" value="#{articleBean.items}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{item.id}" />
+                </p:column>
+                <p:column headerText="Title">
+                    <h:outputText value="#{item.title}" />
+                </p:column>
+
+                <p:column headerText="Status">
+                    <h:outputText value="#{item.status}" />
+                </p:column>
+                <p:column headerText="Type">
+                    <h:outputText value="#{item.type}" />
+                </p:column>
+                <p:column headerText="Location">
+                    <h:outputText value="#{item.location}" />
+                </p:column>
+                <p:column headerText="Text">
+                    <h:outputText value="#{item.text}" />
+                </p:column>
+
+            </p:dataTable>
+            </p:growl>
+
+            <p:commandButton value="Show" action="show" execute="@form" update="messages"/>
+            <p:commandButton value="Exit" action="exit" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>

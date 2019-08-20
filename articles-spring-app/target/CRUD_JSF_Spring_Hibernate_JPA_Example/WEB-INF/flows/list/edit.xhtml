@@ -1,0 +1,52 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/layouts/standard.xhtml">
+
+    <ui:define name="title">Complete Article List</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+
+            <p:panel header="Articles list">
+
+                <p:panelGrid columns="2" cellpadding="5">
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Article </th>
+                            <th> Title</th>
+                            <th>Type</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ui:repeat value="#{articleBean.items}" var="item">
+                            <p:growl id="growl2" showDetail="true" sticky="true" />
+
+                            <tr>
+                                <td>#{item.id}</td>
+                                <td>#{item.title}</td>
+                                <td>#{item.type}</td>
+                                <td>
+                                    <h:commandLink value="Edit" action="editarticle" />
+                                </td>
+                                <td>
+                                    <h:commandLink value="Delete" action="delete" />
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                        </tbody>
+                    </table>
+                </p:panelGrid>
+            </p:panel>
+
+            <br/>
+            <p:commandButton value="Back" action="back"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
