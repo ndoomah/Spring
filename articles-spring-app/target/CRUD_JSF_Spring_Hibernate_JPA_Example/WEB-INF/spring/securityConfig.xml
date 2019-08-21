@@ -6,11 +6,30 @@
                xmlns:beans="http://www.springframework.org/schema/beans">
 
     <http auto-config="true">
-        <intercept-url pattern="/user" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/app/new" access="hasRole('ROLE_ADMIN')" />
+        <form-login login-page="/app/login"
+                    login-processing-url="/app/loginProcess"
+                    default-target-url="/app/home"
+                    authentication-failure-url="/app/login?login_error=1"/>
+        <logout logout-url="/app/logoutSucess" logout-success-url="/app/logoutSucess"/>
     </http>
 
-    <user-service>
-        <user name="user" password="password" authorities="ROLE_USER" />
-    </user-service>
+    <authentication-manager>
+        <authentication-provider>
+            <!--<user-service>
+                <user name="user" password="pwd" authorities="ROLE_USER"/>
+                <user name="admin" password="password" authorities="ROLE_ADMIN" />
+            </user-service>-->
+            <jdbc-user-service data-source-ref="dataSource" users-by-username-query="SELECT username, password, enabled from users where username=?"
+                               authorities-by-username-query="select username, role from user_roles where username=?"/>
+        </authentication-provider>
+    </authentication-manager>
 
+
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <b:property name="driverClassName" value="org.postgresql.Driver" />
+        <b:property name="url" value="jdbc:postgresql://localhost:5432/testdb" />
+        <b:property name="username" value="postgres" />
+        <b:property name="password" value="admin123" />
+    </beans:bean>
 </beans:beans>

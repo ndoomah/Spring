@@ -1,8 +1,13 @@
-launch\Main.class
-br\example\validator\ArticleValidator.class
 br\example\beans\ArticleBean.class
-br\example\repository\ArticleRepository.class
 br\example\service\jpa\ArticleServiceJPA.class
 br\example\model\Article.class
+br\example\service\jpa\UserServiceJPA.class
 br\example\repository\jpa\ArticleRepositoryJPA.class
 br\example\service\ArticleService.class
+launch\Main.class
+br\example\validator\ArticleValidator.class
+br\example\model\User.class
+br\example\repository\UserRepository.class
+br\example\repository\ArticleRepository.class
+br\example\service\UserService.class
+br\example\repository\jpa\UserRepositoryJPA.class

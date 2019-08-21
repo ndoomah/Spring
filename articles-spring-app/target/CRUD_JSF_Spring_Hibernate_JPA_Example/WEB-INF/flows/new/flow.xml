@@ -8,17 +8,16 @@
         Also see ../parent-flow.xml.
     -->
 
-    <secured attributes="USER"/>
-
-    <var name="articleBean" class="br.example.beans.ArticleBean" />
+    <var name="articleBean" class="br.example.beans.ArticleBean"/>
 
     <view-state id="new" model="articleBean">
-        <binder>
+     <!--   <binder>
             <binding property="item.title"/>
             <binding property="item.status"/>
-        </binder>
-        <transition on="save" validate="true">
-            <evaluate expression="articleBean.save"/>
+        </binder>-->
+        <transition on="save">
+            <evaluate expression="articleBean.validateField(messageContext)"/>
+            <evaluate expression="articleBean.save()"/>
         </transition>
         <transition on="editarticle">
             <evaluate expression="articleBean.setItem"/>
@@ -26,7 +25,11 @@
         <transition on="delete">
             <evaluate expression="articleBean.destroy(item)"/>
         </transition>
+        <transition on="logout" to="logoutSuccess"/>
     </view-state>
+    <view-state id="logoutSuccess" view="logoutSucess.xhtml"/>
+
+
     <action-state id="setItem">
         <evaluate expression="articleBean.setItem()"/>
         <transition on="true" to="new"/>

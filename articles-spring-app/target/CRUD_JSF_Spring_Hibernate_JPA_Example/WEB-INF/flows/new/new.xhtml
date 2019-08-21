@@ -3,15 +3,26 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:form="http://www.springframework.org/tags/form"
-                xmlns:spring="http://www.springframework.org/tags"
+                xmlns:spring="http://www.springframework.org/tags" xmlns:c="http://java.sun.com/jsp/jstl/core"
                 template="/WEB-INF/layouts/standard.xhtml"
                 xmlns:p="http://primefaces.org/ui">
 
 
     <ui:define name="content">
-        <h:form class="span-10">
+        <p class="alt">
+            You're currently logged in as '${currentUser.name}'
+        </p>
 
+        <h:form class="span-10">
+            <p:messages />
+
+            <p:commandButton value="Logout" action="logout"/>
+
+            <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+
+<!--
             <p:growl id="msg"/>
+-->
             <fieldset>
                 <!--<h:panelGroup layout="block" styleClass="success" rendered="${not empty result}">
                     <h:outputLabel for="email">Save successful: </h:outputLabel>
@@ -23,10 +34,9 @@
                     <p:outputLabel for="title">Title: </p:outputLabel>
                     <!--<p:inputText id="title" value="#{articleBean.item.title}" required="true" requiredMessage="This field is empty!"/>
                     <p:message for="title" />-->
-                    <p:inputText id="title" value="#{articleBean.item.title}" required="true">
-                        <p:ajax update="msgTitle" event="keyup"/>
+                    <p:inputText id="title" value="#{articleBean.item.title}">
                     </p:inputText>
-                    <p:message for="title" id="msgTitle" display="icon"/>
+
 
                 </p>
                 <p>
@@ -61,13 +71,14 @@
                 </p:panel>
             </fieldset>
             <p>
-               <!-- <p:commandButton value="Save" action="save" execute="@form" update="@form"> -->
-                <p:commandButton value="Save" action="#{articleBean.destroy(item)}" execute="@form" update="@form">
-                    <p:collector value="#{articleBean.item}" unique="true" addTo="#{articleBean.items}"/>
+                <p:commandButton value="Save" action="save" execute="@form" update="@form" immediate="true">
                 </p:commandButton>
-                <p:commandButton value="Exit" action="exit" />
+                <p:commandButton value="Exit" action="exit" immediate="true"/>
+
             </p>
         </h:form>
+        <h:form>
+            <input type="hidden"  name="${_csrf.parameterName}"  value="${_csrf.token}"/>
 
             <p:panel header="Articles list" id="items">
 
@@ -101,8 +112,6 @@
                         </tbody>
                     </table> -->
 
-                <h:form>
-
                     <p:dataTable id="dataTable" value="#{articleBean.items}" var="item" border="1">
                         <p:column>
                             <f:facet name="header">
@@ -126,7 +135,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Action"/>
                             </f:facet>
-                            <p:commandLink value="Edit" action="#{articleBean.setItem(item)}" ajax="false"/>
+                            <p:commandLink value="Edit" action="#{articleBean.setItem(item)}" ajax="false" update="@form"/>
                             <br/>
                             <p:commandLink value="Remove" actionListener="#{articleBean.destroy(item)}" immediate="true" update="@form">
                                <!-- <p:collector value="#{item}" unique="true" removeFrom="#{articleBean.items}"/>-->
@@ -138,10 +147,10 @@
                             </p:confirmDialog>
                         </p:column>
                     </p:dataTable>
-                </h:form>
                 </p:panelGrid>
             </p:panel>
 
+        </h:form>
             <br/>
 
     </ui:define>

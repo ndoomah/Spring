@@ -15,7 +15,7 @@
     <context:component-scan base-package="br.example"/>
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    	<property name="driverClassName" value="org.postgresql.Driver" />
+    	<property name="driverClassName" value="org.postgres.Driver" />
     	<property name="url" value="jdbc:postgresql://localhost:5432/testdb" />
     	<property name="username" value="postgres" />
     	<property name="password" value="admin123" />
@@ -59,13 +59,15 @@
 		<property name="prefix" value="/articles/" />
 		<property name="suffix" value=".xhtml" />
 	</bean>-->
-    <!--
-        Installs a listener that manages JPA persistence contexts for flows
-        that require them
-    -->
+
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf" />
     </bean>
+
+    <!--
+       Installs a listener that manages JPA persistence contexts for flows
+       that require them
+   -->
 
     <bean id="jpaFlowExecutionListener"
           class="org.springframework.webflow.persistence.JpaFlowExecutionListener">
