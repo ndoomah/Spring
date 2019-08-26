@@ -16,8 +16,8 @@
             <binding property="item.status"/>
         </binder>-->
         <transition on="save">
-            <evaluate expression="articleBean.validateField(messageContext)"/>
-            <evaluate expression="articleBean.save()"/>
+            <!--<evaluate expression="articleBean.validateField(messageContext)"/>-->
+            <evaluate expression="articleBean.save"/>
         </transition>
         <transition on="editarticle">
             <evaluate expression="articleBean.setItem"/>

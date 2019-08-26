@@ -50,7 +50,7 @@
                     <p:selectOneRadio id="status" value="#{articleBean.item.status}" unselectable="true">
                         <f:selectItem itemLabel="On sale" itemValue="On sale" />
                         <f:selectItem itemLabel="Sold" itemValue="Sold" />
-
+                        <f:selectItems value="#{articleBean.list}" var="list" itemLabel="#{list}" itemValue="#{list}" />
                     </p:selectOneRadio>
                 </p>
                 <p>
@@ -71,7 +71,7 @@
                 </p:panel>
             </fieldset>
             <p>
-                <p:commandButton value="Save" action="save" execute="@form" update="@form" immediate="true">
+                <p:commandButton value="Save" action="#{articleBean.save}" execute="@form" update="@form" immediate="true">
                 </p:commandButton>
                 <p:commandButton value="Exit" action="exit" immediate="true"/>
 

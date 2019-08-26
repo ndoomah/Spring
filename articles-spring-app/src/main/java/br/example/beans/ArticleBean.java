@@ -138,6 +138,12 @@ public class ArticleBean extends MultiAction implements Serializable {
 		}
 		return true;
 	}
-
+public List<String> getList(){
+		List<String> listResult = new ArrayList<>();
+		listResult.add("Shipped");
+		listResult.add("Cancelled");
+		listResult.add("Unavailable");
+		return listResult;
+}
 
 }
